@@ -1,0 +1,2 @@
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'Shougo/neocomplete'
