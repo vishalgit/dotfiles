@@ -49,6 +49,7 @@ Plug 'avelino/vim-bootstrap-updater'
 Plug 'sheerun/vim-polyglot'
 Plug 'ervandew/supertab'
 Plug 'OmniSharp/omnisharp-vim'
+Plug 'zhou13/vim-easyescape'
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 else
@@ -521,7 +522,11 @@ let g:airline#extensions#virtualenv#enabled = 1
 " Default highlight is better than polyglot
 let g:polyglot_disabled = ['python']
 let python_highlight_all = 1
-
+" Vim escape
+let g:easyescape_chars = { "j": 1, "k": 1 }
+let g:easyescape_timeout = 500
+cnoremap jk <ESC>
+cnoremap kj <ESC>
 
 "*****************************************************************************
 "*****************************************************************************
