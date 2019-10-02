@@ -79,6 +79,7 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'tpope/vim-haml'
 Plug 'mattn/emmet-vim'
+let g:user_emmet_leader_key=','
 
 
 " javascript
@@ -224,7 +225,7 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 
 " Map jj to Esc
-imap jj <Esc>
+imap jk <Esc>
 
 if exists("*fugitive#statusline")
   set statusline+=%{fugitive#statusline()}
