@@ -46,7 +46,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-rhubarb' " required by fugitive to :Gbrowse
-
+Plug 'prettier/vim-prettier', {'do': 'yarn install'}
 
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
@@ -168,8 +168,8 @@ silent! colorscheme molokai
 
 set mousemodel=popup
 set t_Co=256
-set guioptions=egmrti
-set gfn=Monospace\ 10
+set guioptions=egi
+set gfn=FiraCode\ 12
 
 if has("gui_running")
   if has("gui_mac") || has("gui_macvim")
@@ -226,7 +226,8 @@ nnoremap N Nzzzv
 
 " Map jj to Esc
 imap jk <Esc>
-
+" Setting prettier default key
+nmap <Leader>pt <Plug>(Prettier)
 if exists("*fugitive#statusline")
   set statusline+=%{fugitive#statusline()}
 endif
