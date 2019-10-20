@@ -99,7 +99,10 @@ Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
 Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
 
-
+" vim wiki for wiki
+Plug 'vimwiki/vimwiki'
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+            \ 'syntax': 'markdown', 'ext': '.md'}]
 "*****************************************************************************
 "*****************************************************************************
 
