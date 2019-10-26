@@ -27,8 +27,6 @@ call plug#begin(expand('~/.vim/plugged'))
 "*****************************************************************************
 "" Plug install packages
 "*****************************************************************************
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/async.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'tpope/vim-commentary'
@@ -104,7 +102,40 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
             \ 'syntax': 'markdown', 'ext': '.md'}]
 "*****************************************************************************
 "*****************************************************************************
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+let g:coc_global_extensions=['coc-omnisharp','coc-json','coc-tsserver','coc-html','coc-css', 'coc-yaml', 'coc-python','coc-emmet','coc-fsharp','coc-angular']
+" if hidden is not set, TextEdit might fail.
+set hidden
+"
+" " Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+set cmdheight=2
+set shortmess+=c
+" always show signcolumns
+set signcolumn=yes
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other
+" plugin.
+inoremap <silent><expr> <TAB>
+       \ pumvisible() ? "\<C-n>" :
+             \ <SID>check_back_space() ? "\<TAB>" :
+                   \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+ " Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+"
+" Use <cr> to confirm completion, `<C-g>u` means break
+" undo chain at current position.
+" Coc only does snippet and additional edit on
+" confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 "" Include user's extra bundle
 if filereadable(expand("~/.vimrc.local.bundles"))
   source ~/.vimrc.local.bundles
@@ -115,7 +146,6 @@ call plug#end()
 filetype plugin indent on
 
 
-let g:deoplete#enable_at_startup = 1
 "*****************************************************************************
 "" Basic Setup
 "*****************************************************************************"
@@ -391,8 +421,8 @@ nnoremap <silent> <leader>e :FZF -m<CR>
 nmap <leader>y :History:<CR>
 
 " snippets
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<leader>t"
+let g:UltiSnipsJumpForwardTrigger="<leader>t"
 let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetDirectories=['~/.vim/UltiSnips','UltiSnips']
@@ -523,9 +553,6 @@ let g:OmniSharp_timeout = 5
 " one (so the preview documentation is accessible). Remove 'preview' if you
 " don't want to see any documentation whatsoever.
 set completeopt=noinsert,noselect,menuone,preview,longest
-let g:asyncomplete_auto_popup = 1
-let g:asyncomplete_auto_completeopt = 0
-let g:asyncomplete_force_refresh_on_context_changed = 1
 
 " Fetch full documentation during omnicomplete requests.
 " By default, only Type/Method signatures are fetched. Full documentation can
