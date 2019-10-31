@@ -110,7 +110,7 @@ set hidden
 " " Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
-set cmdheight=2
+set cmdheight=1
 set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
@@ -617,7 +617,33 @@ nnoremap <Leader>sp :OmniSharpStopServer<CR>
 
 " Enable snippet completion
 " let g:OmniSharp_want_snippet=1
+set updatetime=500
 
+sign define OmniSharpCodeActions text=💡
+
+augroup OSCountCodeActions
+  autocmd!
+  autocmd FileType cs set signcolumn=yes
+  autocmd CursorHold *.cs call OSCountCodeActions()
+augroup END
+
+function! OSCountCodeActions() abort
+  if bufname('%') ==# '' || OmniSharp#FugitiveCheck() | return | endif
+  if !OmniSharp#IsServerRunning() | return | endif
+  let opts = {
+  \ 'CallbackCount': function('s:CBReturnCount'),
+  \ 'CallbackCleanup': {-> execute('sign unplace 99')}
+  \}
+  call OmniSharp#CountCodeActions(opts)
+endfunction
+
+function! s:CBReturnCount(count) abort
+  if a:count
+    let l = getpos('.')[1]
+    let f = expand('%:p')
+    execute ':sign place 99 line='.l.' name=OmniSharpCodeActions file='.f
+  endif
+endfunction
 
 
 
