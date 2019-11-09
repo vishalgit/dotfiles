@@ -110,7 +110,7 @@ set hidden
 " " Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
-set cmdheight=1
+set cmdheight=2
 set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
