@@ -62,9 +62,6 @@ Plug 'Shougo/vimproc.vim', {'do': g:make}
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 
-"" Snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 
 "" Color
 Plug 'tomasr/molokai'
@@ -78,8 +75,8 @@ Plug 'tomasr/molokai'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'tpope/vim-haml'
-Plug 'mattn/emmet-vim'
-let g:user_emmet_leader_key=','
+"Plug 'mattn/emmet-vim'
+"let g:user_emmet_leader_key=','
 
 
 " javascript
@@ -103,7 +100,7 @@ let g:vimwiki_list = [{'path': '~/vimwiki/',
 "*****************************************************************************
 "*****************************************************************************
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_global_extensions=['coc-omnisharp','coc-json','coc-tsserver','coc-html','coc-css', 'coc-yaml', 'coc-python','coc-emmet','coc-fsharp','coc-angular']
+let g:coc_global_extensions=['coc-omnisharp','coc-json','coc-tsserver','coc-html','coc-css', 'coc-yaml', 'coc-python','coc-emmet','coc-fsharp','coc-angular', 'coc-snippets', 'coc-highlight']
 " if hidden is not set, TextEdit might fail.
 set hidden
 "
@@ -114,28 +111,18 @@ set cmdheight=2
 set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other
-" plugin.
 inoremap <silent><expr> <TAB>
-       \ pumvisible() ? "\<C-n>" :
-             \ <SID>check_back_space() ? "\<TAB>" :
-                   \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
- " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-"
-" Use <cr> to confirm completion, `<C-g>u` means break
-" undo chain at current position.
-" Coc only does snippet and additional edit on
-" confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+	  \ pumvisible() ? coc#_select_confirm() :
+	  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+	  \ <SID>check_back_space() ? "\<TAB>" :
+	  \ coc#refresh()
+	
+	function! s:check_back_space() abort
+	  let col = col('.') - 1
+	  return !col || getline('.')[col - 1]  =~# '\s'
+	endfunction
+	
+	let g:coc_snippet_next = '<tab>'
 "" Include user's extra bundle
 if filereadable(expand("~/.vimrc.local.bundles"))
   source ~/.vimrc.local.bundles
@@ -260,6 +247,7 @@ nnoremap N Nzzzv
 
 " Map jj to Esc
 imap jk <Esc>
+vmap jk <Esc>
 " Setting prettier default key
 nmap <Leader>pt <Plug>(Prettier)
 if exists("*fugitive#statusline")
@@ -421,12 +409,6 @@ nnoremap <silent> <leader>e :FZF -m<CR>
 nmap <leader>y :History:<CR>
 
 " snippets
-let g:UltiSnipsExpandTrigger="<leader>t"
-let g:UltiSnipsJumpForwardTrigger="<leader>t"
-let g:UltiSnipsJumpBackwardTrigger="<c-b>"
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetDirectories=['~/.vim/UltiSnips','UltiSnips']
-
 " ale
 let g:ale_linters = {}
 
