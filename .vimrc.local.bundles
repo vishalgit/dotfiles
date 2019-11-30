@@ -1,0 +1,3 @@
+Plug 'honza/vim-snippets'
+Plug 'KabbAmine/vCoolor.vim'
+Plug '907th/vim-auto-save'
