@@ -1,3 +1,5 @@
 Plug 'honza/vim-snippets'
 Plug 'KabbAmine/vCoolor.vim'
+Plug 'tpope/vim-surround'
+Plug 'jvanja/vim-bootstrap4-snippets'
 Plug '907th/vim-auto-save'
