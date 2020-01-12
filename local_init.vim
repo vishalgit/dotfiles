@@ -1,6 +1,8 @@
-imap jk <Esc>
-vmap jk <Esc>
-" Coc Settings"
+inoremap jk <Esc>
+vnoremap jk <Esc>
+" Enable Mouse
+set mouse=a
+
 let g:coc_global_extensions=['coc-omnisharp','coc-json','coc-tsserver','coc-html','coc-css', 'coc-yaml', 'coc-python','coc-emmet','coc-fsharp','coc-angular', 'coc-snippets', 'coc-highlight', 'coc-tslint-plugin', 'coc-prettier', 'coc-explorer']
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -52,6 +54,9 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -109,8 +114,8 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-"-------------------------------------------------------------
-"OmniSharp Settings
+
+" Omnisharp
 " Use the stdio OmniSharp-roslyn server
 let g:OmniSharp_server_stdio = 1
 
@@ -170,12 +175,13 @@ augroup omnisharp_commands
 augroup END
 
 " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
-nnoremap <Leader>, :OmniSharpGetCodeActions<CR>
+nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
 " Run code actions with text selected in visual mode to extract method
-xnoremap <Leader>, :call OmniSharp#GetCodeActions('visual')<CR>
+xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
 
 " Rename with dialog
 nnoremap <Leader>nm :OmniSharpRename<CR>
+
 " Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
 command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
 
@@ -214,15 +220,13 @@ function! s:CBReturnCount(count) abort
     execute ':sign place 99 line='.l.' name=OmniSharpCodeActions file='.f
   endif
 endfunction
-"---------------------------------------------------------------------------------
-" Coc Explorer setup
-:nmap ge :CocCommand explorer<CR>
+
+" Shortcut for executing tests in omnisharp
+nmap <Leader>ra :OmniSharpRunTestsInFile<CR> 
 
 " Vim autosave configuration
 let g:auto_save = 1 "enable auto save on vim startup"
 let g:auto_save_silent = 1 "donot display the auto save notification"
 let g:auto_save_events = ["InsertLeave"]
 
-" Shortcut for executing tests in omnisharp
-nmap <Leader>ra :OmniSharpRunTestsInFile<CR> 
 
