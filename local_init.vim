@@ -220,7 +220,6 @@ function! s:CBReturnCount(count) abort
     execute ':sign place 99 line='.l.' name=OmniSharpCodeActions file='.f
   endif
 endfunction
-<<<<<<< HEAD
 
 " Shortcut for executing tests in omnisharp
 nmap <Leader>ra :OmniSharpRunTestsInFile<CR> 
@@ -229,7 +228,5 @@ nmap <Leader>ra :OmniSharpRunTestsInFile<CR>
 let g:auto_save = 1 "enable auto save on vim startup"
 let g:auto_save_silent = 1 "donot display the auto save notification"
 let g:auto_save_events = ["InsertLeave"]
-=======
->>>>>>> 53394421d987d46cc35fe33d6fcaf3c587dae79a
 
 
