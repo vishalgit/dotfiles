@@ -1,8 +1,7 @@
-Plug 'honza/vim-snippets'
-Plug 'KabbAmine/vCoolor.vim'
-Plug 'tpope/vim-surround'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'OmniSharp/omnisharp-vim'
 Plug '907th/vim-auto-save'
+Plug 'KabbAmine/vCoolor.vim'
+Plug 'devlearnnow/vim-nuget'
 Plug 'mattn/webapi-vim'
-Plug 'markwoodhall/vim-nuget'
-Plug 'vim-scripts/Conque-GDB'
-Plug 'OrangeT/vim-csharp'
+Plug 'puremourning/vimspector'

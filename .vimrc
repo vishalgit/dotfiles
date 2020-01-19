@@ -5,7 +5,7 @@
 "*****************************************************************************
 let vimplug_exists=expand('~/.vim/autoload/plug.vim')
 
-let g:vim_bootstrap_langs = "html,javascript,python,typescript"
+let g:vim_bootstrap_langs = "html,javascript,php,python,ruby,typescript"
 let g:vim_bootstrap_editor = "vim"				" nvim or vim
 
 if !filereadable(vimplug_exists)
@@ -38,7 +38,6 @@ Plug 'vim-scripts/grep.vim'
 Plug 'vim-scripts/CSApprox'
 Plug 'Raimondi/delimitMate'
 Plug 'majutsushi/tagbar'
-Plug 'OmniSharp/omnisharp-vim'
 Plug 'w0rp/ale'
 Plug 'Yggdroot/indentLine'
 Plug 'avelino/vim-bootstrap-updater'
@@ -61,6 +60,8 @@ Plug 'Shougo/vimproc.vim', {'do': g:make}
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 
+"" Snippets
+Plug 'honza/vim-snippets'
 
 "" Color
 Plug 'tomasr/molokai'
@@ -74,13 +75,17 @@ Plug 'tomasr/molokai'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'gorodinskiy/vim-coloresque'
 Plug 'tpope/vim-haml'
-"Plug 'mattn/emmet-vim'
-"let g:user_emmet_leader_key=','
+Plug 'mattn/emmet-vim'
 
 
 " javascript
 "" Javascript Bundle
 Plug 'jelera/vim-javascript-syntax'
+
+
+" php
+"" PHP Bundle
+Plug 'arnaud-lb/vim-php-namespace'
 
 
 " python
@@ -89,133 +94,29 @@ Plug 'davidhalter/jedi-vim'
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
 
 
+" ruby
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-projectionist'
+Plug 'thoughtbot/vim-rspec'
+Plug 'ecomba/vim-ruby-refactoring'
+
+
 " typescript
 Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
-" vim wiki for wiki
-Plug 'vimwiki/vimwiki'
-let g:vimwiki_list = [{'path': '~/vimwiki/',
-            \ 'syntax': 'markdown', 'ext': '.md'}]
+
+
 "*****************************************************************************
 "*****************************************************************************
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_global_extensions=['coc-omnisharp','coc-json','coc-tsserver','coc-html','coc-css', 'coc-yaml', 'coc-python','coc-emmet','coc-fsharp','coc-angular', 'coc-snippets', 'coc-highlight', 'coc-tslint-plugin', 'coc-prettier', 'coc-diagnostic']
-" if hidden is not set, TextEdit might fail.
-set hidden
-"
-" " Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-set cmdheight=2
-set shortmess+=c
-" always show signcolumns
-set signcolumn=yes
-inoremap <silent><expr> <TAB>
-	  \ pumvisible() ? coc#_select_confirm() :
-	  \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-	  \ <SID>check_back_space() ? "\<TAB>" :
-	  \ coc#refresh()
-	
-	function! s:check_back_space() abort
-	  let col = col('.') - 1
-	  return !col || getline('.')[col - 1]  =~# '\s'
-	endfunction
-	
-	let g:coc_snippet_next = '<tab>'
 
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Create mappings for function text object, requires document symbols feature of languageserver.
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
-
-" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
-nmap <silent> <C-d> <Plug>(coc-range-select)
-xmap <silent> <C-d> <Plug>(coc-range-select)
-
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" use `:OR` for organize import of current buffer
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Using CocList
-" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 "" Include user's extra bundle
 if filereadable(expand("~/.vimrc.local.bundles"))
   source ~/.vimrc.local.bundles
 endif
 
 call plug#end()
+
 " Required:
 filetype plugin indent on
 
@@ -269,15 +170,15 @@ let g:session_command_aliases = 1
 "*****************************************************************************
 syntax on
 set ruler
-set rnu
+set number
 
 let no_buffers_menu=1
 silent! colorscheme molokai
 
 set mousemodel=popup
 set t_Co=256
-set guioptions=egi
-set gfn=FiraCode\ 12
+set guioptions=egmrti
+set gfn=Monospace\ 10
 
 if has("gui_running")
   if has("gui_mac") || has("gui_macvim")
@@ -332,9 +233,6 @@ set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-" Map jj to Esc
-imap jk <Esc>
-vmap jk <Esc>
 if exists("*fugitive#statusline")
   set statusline+=%{fugitive#statusline()}
 endif
@@ -371,7 +269,7 @@ let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-nnoremap <silent> <F4> :NERDTreeFind<CR>
+nnoremap <silent> <F2> :NERDTreeFind<CR>
 nnoremap <silent> <F3> :NERDTreeToggle<CR>
 
 " grep.vim
@@ -446,7 +344,7 @@ noremap <Leader>gsh :Gpush<CR>
 noremap <Leader>gll :Gpull<CR>
 noremap <Leader>gs :Gstatus<CR>
 noremap <Leader>gb :Gblame<CR>
-noremap <Leader>gv :Gvdiff<CR>
+noremap <Leader>gd :Gvdiff<CR>
 noremap <Leader>gr :Gremove<CR>
 
 " session management
@@ -494,6 +392,7 @@ nnoremap <silent> <leader>e :FZF -m<CR>
 nmap <leader>y :History:<CR>
 
 " snippets
+
 " ale
 let g:ale_linters = {}
 
@@ -570,6 +469,9 @@ augroup vimrc-javascript
 augroup END
 
 
+" php
+
+
 " python
 " vim-python
 augroup vimrc-python
@@ -603,114 +505,55 @@ let g:polyglot_disabled = ['python']
 let python_highlight_all = 1
 
 
+" ruby
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_classes_in_global = 1
+let g:rubycomplete_rails = 1
+
+augroup vimrc-ruby
+  autocmd!
+  autocmd BufNewFile,BufRead *.rb,*.rbw,*.gemspec setlocal filetype=ruby
+  autocmd FileType ruby set tabstop=2|set shiftwidth=2|set expandtab softtabstop=2
+augroup END
+
+let g:tagbar_type_ruby = {
+    \ 'kinds' : [
+        \ 'm:modules',
+        \ 'c:classes',
+        \ 'd:describes',
+        \ 'C:contexts',
+        \ 'f:methods',
+        \ 'F:singleton methods'
+    \ ]
+\ }
+
+" RSpec.vim mappings
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
+
+" For ruby refactory
+if has('nvim')
+  runtime! macros/matchit.vim
+else
+  packadd! matchit
+endif
+
+" Ruby refactory
+nnoremap <leader>rap  :RAddParameter<cr>
+nnoremap <leader>rcpc :RConvertPostConditional<cr>
+nnoremap <leader>rel  :RExtractLet<cr>
+vnoremap <leader>rec  :RExtractConstant<cr>
+vnoremap <leader>relv :RExtractLocalVariable<cr>
+nnoremap <leader>rit  :RInlineTemp<cr>
+vnoremap <leader>rrlv :RRenameLocalVariable<cr>
+vnoremap <leader>rriv :RRenameInstanceVariable<cr>
+vnoremap <leader>rem  :RExtractMethod<cr>
+
+
 " typescript
 let g:yats_host_keyword = 1
-
-" Omnisharp
-" Use the stdio OmniSharp-roslyn server
-let g:OmniSharp_server_stdio = 1
-
-" Set the type lookup function to use the preview window instead of echoing it
-"let g:OmniSharp_typeLookupInPreview = 1
-
-" Timeout in seconds to wait for a response from the server
-let g:OmniSharp_timeout = 5
-
-" Don't autoselect first omnicomplete option, show options even if there is only
-" one (so the preview documentation is accessible). Remove 'preview' if you
-" don't want to see any documentation whatsoever.
-set completeopt=noinsert,noselect,menuone,preview,longest
-
-" Fetch full documentation during omnicomplete requests.
-" By default, only Type/Method signatures are fetched. Full documentation can
-" still be fetched when you need it with the :OmniSharpDocumentation command.
-"let g:omnicomplete_fetch_full_documentation = 1
-
-" Set desired preview window height for viewing documentation.
-" You might also want to look at the echodoc plugin.
-set previewheight=5
-
-" Tell ALE to use OmniSharp for linting C# files, and no other linters.
-:call extend(g:ale_linters, {
-    \'cs': ['OmniSharp'], })
-" Update semantic highlighting on BufEnter and InsertLeave
-let g:OmniSharp_highlight_types = 2
-augroup omnisharp_commands
-    autocmd!
-
-    " Show type information automatically when the cursor stops moving
-    autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
-
-    " The following commands are contextual, based on the cursor position.
-    autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
-
-    " Finds members in the current buffer
-    autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
-
-    autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
-    autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
-    autocmd FileType cs nnoremap <buffer> <C-\> :OmniSharpSignatureHelp<CR>
-    autocmd FileType cs inoremap <buffer> <C-\> <C-o>:OmniSharpSignatureHelp<CR>
-
-    " Navigate up and down by method/property/field
-    autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
-    autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
-
-    " Find all code errors/warnings for the current solution and populate the quickfix window
-    autocmd FileType cs nnoremap <buffer> <Leader>cc :OmniSharpGlobalCodeCheck<CR>
-augroup END
-
-" Contextual code actions (uses fzf, CtrlP or unite.vim when available)
-nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
-" Run code actions with text selected in visual mode to extract method
-xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
-
-" Rename with dialog
-nnoremap <Leader>nm :OmniSharpRename<CR>
-nnoremap <F2> :OmniSharpRename<CR>
-" Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
-command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
-
-nnoremap <Leader>cf :OmniSharpCodeFormat<CR>
-
-" Start the omnisharp server for the current solution
-nnoremap <Leader>ss :OmniSharpStartServer<CR>
-nnoremap <Leader>sp :OmniSharpStopServer<CR>
-
-" Enable snippet completion
-" let g:OmniSharp_want_snippet=1
-set updatetime=500
-
-sign define OmniSharpCodeActions text=💡
-
-augroup OSCountCodeActions
-  autocmd!
-  autocmd FileType cs set signcolumn=yes
-  autocmd CursorHold *.cs call OSCountCodeActions()
-augroup END
-
-function! OSCountCodeActions() abort
-  if bufname('%') ==# '' || OmniSharp#FugitiveCheck() | return | endif
-  if !OmniSharp#IsServerRunning() | return | endif
-  let opts = {
-  \ 'CallbackCount': function('s:CBReturnCount'),
-  \ 'CallbackCleanup': {-> execute('sign unplace 99')}
-  \}
-  call OmniSharp#CountCodeActions(opts)
-endfunction
-
-function! s:CBReturnCount(count) abort
-  if a:count
-    let l = getpos('.')[1]
-    let f = expand('%:p')
-    execute ':sign place 99 line='.l.' name=OmniSharpCodeActions file='.f
-  endif
-endfunction
-
 
 
 
