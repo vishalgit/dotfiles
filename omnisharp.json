@@ -2,7 +2,7 @@
     "RoslynExtensionsOptions": {
         "enableAnalyzersSupport": true,
         "locationPaths": [
-            "/home/vishal/analyzers"
+            "/home/vishal/dotfiles/analyzers"
         ]
     }
 }

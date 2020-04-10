@@ -76,6 +76,6 @@
         "zip",
         "zlib",
         "ssh2",
-        "/home/vishal/stubs"
+        "/home/vishal/dotfiles/stubs"
     ]
 }
