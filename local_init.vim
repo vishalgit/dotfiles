@@ -3,7 +3,7 @@ vnoremap jk <Esc>
 " Enable Mouse
 set mouse=a
 
-let g:coc_global_extensions=['coc-omnisharp','coc-json','coc-tsserver','coc-html','coc-css', 'coc-yaml', 'coc-python','coc-emmet','coc-fsharp','coc-angular', 'coc-snippets', 'coc-highlight', 'coc-tslint-plugin', 'coc-prettier', 'coc-phpls']
+let g:coc_global_extensions=['coc-omnisharp','coc-json','coc-tsserver','coc-html','coc-css', 'coc-yaml', 'coc-python','coc-emmet','coc-fsharp','coc-angular', 'coc-snippets', 'coc-highlight', 'coc-tslint-plugin', 'coc-prettier', 'coc-phpls', 'coc-docker']
 " if hidden is not set, TextEdit might fail.
 set hidden
 "
