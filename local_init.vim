@@ -229,4 +229,6 @@ let g:auto_save = 1 "enable auto save on vim startup"
 let g:auto_save_silent = 1 "donot display the auto save notification"
 let g:auto_save_events = ["InsertLeave"]
 
-
+" Vim Wiki
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki', 'syntax': 'markdown'}]
+au FileType vimwiki setlocal shiftwidth=6 tabstop=6 noexpandtab
